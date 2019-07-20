@@ -37,28 +37,32 @@ public class GameInventoryManager extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException {
         Group root = new Group();
         HBox pane = new HBox();
-        Scene scene = new Scene(root, 1400, 900, Color.LIGHTSALMON);
+        Color backgroundColor = Color.web("#FBDF55");
+        Color blueAccent = Color.web("#669CF5");
+        
+        Scene scene = new Scene(root, 1400, 900, backgroundColor);
 
         root.getChildren().add(pane);
 
-        Image imgLogo = new Image("Images/Capture.PNG");
+        Image imgLogo = new Image("Images/Capture3.PNG");
 
         //Image imgLogo = new Image();
+      
         ImageView iV = new ImageView(imgLogo);
         iV.setImage(imgLogo);
         iV.setFitHeight(300);
-        iV.setFitWidth(360);
+        iV.setFitWidth(300);
         iV.setY(50);
         iV.setX(100);
 
         root.getChildren().add(iV);
 
-        Rectangle rec1 = new Rectangle(650, 300, Color.LIGHTSKYBLUE);
+        Rectangle rec1 = new Rectangle(650, 300, blueAccent);
         rec1.setY(50);
         rec1.setX(600);
         root.getChildren().add(rec1);
 
-        Rectangle rec2 = new Rectangle(1200, 450, Color.LIGHTSKYBLUE);
+        Rectangle rec2 = new Rectangle(1200, 450, blueAccent);
         rec2.setY(430);
         rec2.setX(100);
         root.getChildren().add(rec2);
