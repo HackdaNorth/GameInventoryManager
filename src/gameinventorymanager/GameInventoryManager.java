@@ -16,17 +16,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -91,14 +88,15 @@ public class GameInventoryManager extends Application {
         tf.setLayoutX(160);
         tf.setLayoutY(400);
         root.getChildren().add(tf);
-        
+
         
        
         TextField dbName = new TextField();
         Label lbName = new Label("Name:");
         textBoxes.add(lbName, 1, 0);
         textBoxes.add(dbName, 1, 1);
-        dbName.setPromptText("Name...");        
+        dbName.setPromptText("Name..."); 
+        
 
         Label lbCost = new Label("Cost:");
         TextField dbCost = new TextField();
