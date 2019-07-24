@@ -3,6 +3,7 @@
 package gameinventorymanager;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,7 +13,9 @@ import javafx.stage.Stage;
  */
 public class databaseInteraction  {
 
-   
+  public databaseInteraction (FileReader file) {
+      
+  }
 
     
 }
