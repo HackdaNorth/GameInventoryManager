@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -186,7 +187,8 @@ public class GameInventoryManager extends Application {
 
         System.out.println(formattedList());
 
-        Text displayData = new Text(formattedList());
+        TextArea displayData = new TextArea(Arrays.toString(
+                databaseInteraction.getGameList().toArray()));
         listDisplay.getChildren().add(displayData);
 
         listDisplay.setLayoutX(100);
@@ -243,12 +245,10 @@ public class GameInventoryManager extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     //this takes the arraylist and removes brackets and still working on proper format
     public static String formattedList() {
-        int num = 0,pos1 = 0,rows = 0;
-
-        StringBuffer sbufTemp = new StringBuffer();
-
+        int num = 0, pos1 = 0, rows = 0;
         String temp = Arrays.toString(
                 databaseInteraction.getGameList().toArray());
         StringBuilder sbTemp = new StringBuilder(temp.replace("[", "").replace("]", ""));
@@ -258,20 +258,18 @@ public class GameInventoryManager extends Application {
         for (int i = 0; i < sbTemp.length(); i++) {
             if (sbTemp.charAt(i) == delimiter) {
                 num++;
-            }
-            while (rows < 30) {
-                 while (num == 12) {
+                while (num == 12) {                  
                     pos1 = sbTemp.indexOf(",");
-                    sbTemp.setCharAt(pos1, '\n');                  
+                    sbTemp.setCharAt(pos1, '\n');
                     num = 0;
-                    pos1 = 0;
-                    rows++;
-                   
-                } if (rows == 30) {
-                    break;
+                    if (rows == 30) {
+                        break;
+
+                    }
                 }
             }
         }
+
         temp = sbTemp.toString();
         //System.out.println(sbTemp);
         return temp;

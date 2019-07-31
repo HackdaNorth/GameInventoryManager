@@ -28,6 +28,7 @@ import javafx.util.Callback;
  */
 public class databaseInteraction {
 //google what msot of this shit means lul
+
     public static ArrayList<String> gameList = new ArrayList<>();
     public static String[] cell = new String[13];
     public static int num = 0;
@@ -40,16 +41,19 @@ public class databaseInteraction {
         //buildCSV();
         //Get scanner instance
         //rrayList<String> gameList = new ArrayList<>();
-        Scanner scanner = new Scanner(new File(csvFile));       
+        Scanner scanner = new Scanner(new File(csvFile));
         //Set the delimiter used in file
         scanner.useDelimiter(",");
         //Get all tokens and store them in some data structure
         //I am just printing them
         while (scanner.hasNext()) {
-            gameList.add(scanner.nextLine());
+            gameList.add(scanner.next());
         }
         //Do not forget to close the scanner
         scanner.close();
+
+        String csvFilename = "C:\\sample.csv";
+ 
 
     }
 
