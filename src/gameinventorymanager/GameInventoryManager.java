@@ -187,8 +187,7 @@ public class GameInventoryManager extends Application {
 
         System.out.println(formattedList());
 
-        TextArea displayData = new TextArea(Arrays.toString(
-                databaseInteraction.getGameList().toArray()));
+        TextArea displayData = new TextArea(formattedList());
         listDisplay.getChildren().add(displayData);
 
         listDisplay.setLayoutX(100);
@@ -197,12 +196,12 @@ public class GameInventoryManager extends Application {
         root.getChildren().add(listDisplay);
         userOptions.getChildren().add(textBoxes);
 
-//        tf.onAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                
-//            }        
-//        });
+        tf.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                
+            }        
+        });
 //        btnTest.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent event) {
@@ -216,8 +215,14 @@ public class GameInventoryManager extends Application {
 //        });
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                System.out.println(databaseInteraction.getDatabase());
+            public void handle(ActionEvent event) { 
+                try {
+                    if(data.dataBaseSearch(tf.getText()) == true) {
+                        System.out.println("found");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(GameInventoryManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -252,24 +257,6 @@ public class GameInventoryManager extends Application {
         String temp = Arrays.toString(
                 databaseInteraction.getGameList().toArray());
         StringBuilder sbTemp = new StringBuilder(temp.replace("[", "").replace("]", ""));
-        String str;
-        char delimiter = ',';
-
-        for (int i = 0; i < sbTemp.length(); i++) {
-            if (sbTemp.charAt(i) == delimiter) {
-                num++;
-                while (num == 12) {                  
-                    pos1 = sbTemp.indexOf(",");
-                    sbTemp.setCharAt(pos1, '\n');
-                    num = 0;
-                    if (rows == 30) {
-                        break;
-
-                    }
-                }
-            }
-        }
-
         temp = sbTemp.toString();
         //System.out.println(sbTemp);
         return temp;
