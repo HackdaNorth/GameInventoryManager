@@ -61,7 +61,7 @@ public class datapage {
         textBoxes.setHgap(10);
         textBoxes.setVgap(10);
 
-        Image imgLogo = new Image("Images/Capture3.PNG");
+        Image imgLogo = new Image("file:Images/Capture3.PNG");
 
         //Image imgLogo = new Image();
         ImageView iV = new ImageView(imgLogo);
