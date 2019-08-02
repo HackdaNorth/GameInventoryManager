@@ -28,33 +28,22 @@ public class mainController extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
         datapage mainPage = new datapage();
         displayPage secondPage = new displayPage();
-
-        mainPage.start(primaryStage);
-        //display secondPage
+        
+        secondPage.start(primaryStage);
+        //mainPage.start(primaryStage);
+       
+        
+        
         //this is an example of how to switch between stages. You can cut and paste this method in order to switch.
         //It takes the secondary stage form displayPage.
-        mainPage.btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("working");
-                try {
-                    secondPage.start(primaryStage);
-                } catch (IOException ex) {
-                    Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        mainPage.btn.setOnAction((ActionEvent event) -> {
+            System.out.println("working");
+            try {
+                secondPage.start(primaryStage);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-    }
-
-    //this takes the arraylist and removes brackets and still working on proper format
-    public static String formattedList() {
-        int num = 0, pos1 = 0, rows = 0;
-        String temp = Arrays.toString(
-                databaseInteraction.getGameList().toArray());
-        String sbTemp = temp.replace("[", "").replace("]", "");
-        temp = sbTemp;
-        //System.out.println(sbTemp);
-        return temp;
     }
 
     /**

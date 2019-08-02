@@ -1,8 +1,8 @@
 package gameinventorymanager;
 
-import static gameinventorymanager.mainController.formattedList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -40,7 +40,6 @@ public class datapage {
     Stage primaryStage;
 
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
-
         buildStage();
         primaryStage.setTitle("Game Inventory Manager");
         primaryStage.setScene(scene);
@@ -178,36 +177,20 @@ public class datapage {
         textBoxes.add(dbPlatform, 3, 7);
         dbPlatform.setPromptText("Platform...");
 
+        //TextArea for dataBase display
         TextArea displayData = new TextArea(formattedList());
         listDisplay.getChildren().add(displayData);
-
+        //setting a layout for our new ListDisplay
         listDisplay.setLayoutX(100);
         listDisplay.setLayoutY(430);
 
+        //adding everything into the stage
         root.getChildren().add(listDisplay);
         userOptions.getChildren().add(textBoxes);
         root.getChildren().add(btn);
         root.getChildren().add(btnSearch);
 
-        tf.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
-
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                try {
-//                    if (data.dataBaseSearch(tf.getText()) == true) {
-//                        System.out.println("found");
-//                    }
-//                } catch (IOException ex) {
-//                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        });
+        //EventHandler for Search Button, can use to find anything in our list
         btnSearch.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -224,7 +207,16 @@ public class datapage {
 
             }
         });
-
+    }
+    //Formatting our ArraList to remove square brackets
+    public static String formattedList() {
+        int num = 0, pos1 = 0, rows = 0;
+        String temp = Arrays.toString(
+                databaseInteraction.getGameList().toArray());
+        String sbTemp = temp.replace("[", "").replace("]", "");
+        temp = sbTemp;
+        //System.out.println(sbTemp);
+        return temp;
     }
 
     public TextField getTextField() {
@@ -235,7 +227,6 @@ public class datapage {
         return root;
     }
 
-  
     public void hideStage(Stage primaryStage) {
         primaryStage.hide();
     }
