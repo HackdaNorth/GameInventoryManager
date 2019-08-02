@@ -57,10 +57,10 @@ public class displayPage extends mainController {
         extraInfo.setLayoutX(800);
         extraInfo.setLayoutY(90);
 
-        
-
         Rectangle metaRec = new Rectangle(400, 100, goldAccent);
-        Image imgMeta = new Image("Images/metacritic.png");
+        metaRec.setLayoutX(975);
+        metaRec.setLayoutY(550);
+        Image imgMeta = new Image("file:Images/metacritic.png");
         //Image imgLogo = new Image();
         ImageView iV = new ImageView(imgMeta);
         iV.setImage(imgMeta);
@@ -68,10 +68,10 @@ public class displayPage extends mainController {
         iV.setFitWidth(300);
         iV.setX(1070);
         iV.setY(560);
-        
-        //reviewRec.getChildren().addAll(metaRec, iV);   
-        metaRec.setLayoutX(975);
-        metaRec.setLayoutY(550);
+
+        Rectangle reviewBox = new Rectangle(75, 75, darkBlueAccent);
+        reviewBox.setX(990);
+        reviewBox.setY(550);
 
         Rectangle recDesc = new Rectangle(200, 50, goldAccent);
         recDesc.setArcWidth(30.0);
@@ -96,12 +96,10 @@ public class displayPage extends mainController {
         btnSearch.setLayoutX(455);
         btnSearch.setLayoutY(825);
 
-  
-
         //adding nodes to scenes
         extraInfo.getChildren().add(rec2);
-        rootTwo.getChildren().addAll(displayInfo, extraInfo, recDesc, 
-                descripRec, tfSearch, btnSearch, metaRec, iV);
+        rootTwo.getChildren().addAll(displayInfo, extraInfo, recDesc,
+                descripRec, tfSearch, btnSearch, metaRec, iV, reviewBox);
 
     }
 }
