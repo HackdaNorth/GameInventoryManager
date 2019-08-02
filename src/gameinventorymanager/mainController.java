@@ -48,7 +48,7 @@ public class mainController extends Application {
     Stage primaryStage;
     @Override
     public void start( Stage primaryStage) throws FileNotFoundException, IOException {
-        databaseInteraction data = new databaseInteraction();
+        //databaseInteraction data = new databaseInteraction();
         datapage mainPage = new datapage();
         mainPage.buildStage();
         

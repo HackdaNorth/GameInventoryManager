@@ -36,7 +36,6 @@ public class datapage extends mainController {
 
     public void buildStage() throws IOException {
         databaseInteraction data = new databaseInteraction();
-        mainController mainC = new mainController();
 
         root.getChildren().add(pane);
 
