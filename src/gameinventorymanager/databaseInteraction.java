@@ -22,7 +22,7 @@ public class databaseInteraction {
     public static int num = 0;
     public static BufferedReader fileReader = null;
     public static List<List<String>> database = new ArrayList<>();
-    public static String csvFile = ("C:\\Users\\heckd\\OneDrive\\Documents\\Sheridan College\\Object Oriented Programming 2\\GameInventoryManager\\src\\Databases\\gameList.csv");
+    public static String csvFile = ("src\\Databases\\gameList.csv");
 
     public databaseInteraction() throws FileNotFoundException, IOException {
         Scanner scanner = new Scanner(new File(csvFile));
