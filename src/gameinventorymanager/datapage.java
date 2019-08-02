@@ -1,6 +1,7 @@
 package gameinventorymanager;
 
 import static gameinventorymanager.mainController.formattedList;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +21,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 /**
  *
  * @author Conman
  */
-public class datapage extends mainController {
+public class datapage {
 
     TextField tf;
     Group root = new Group();
@@ -33,14 +35,25 @@ public class datapage extends mainController {
     Color backgroundColor = Color.web("#FBDF55");
     Color blueAccent = Color.web("#669CF5");
     Scene scene = new Scene(root, 1400, 900, backgroundColor);
+    Button btn = new Button();
+    displayPage secondPage = new displayPage();
+    Stage primaryStage;
+
+    public void start(Stage primaryStage) throws FileNotFoundException, IOException {
+
+        buildStage();
+        primaryStage.setTitle("Game Inventory Manager");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
     public void buildStage() throws IOException {
         databaseInteraction data = new databaseInteraction();
 
         root.getChildren().add(pane);
-
         //new textFields for the inventory search.
         StackPane userOptions = new StackPane();
+
         userOptions.setLayoutX(600);
         userOptions.setLayoutY(50);
 
@@ -73,12 +86,9 @@ public class datapage extends mainController {
         rec2.setX(100);
         listDisplay.getChildren().add(rec2);
 
-        Button btn = new Button();
         btn.setText("OK");
 
-        Button btnTest = new Button();
-        btn.setText("OKTest");
-
+        //btn.setText("OKTest");
         Button btnSearch = new Button();
         btnSearch.setText("Search");
         btnSearch.setLayoutX(100);
@@ -185,30 +195,19 @@ public class datapage extends mainController {
 
             }
         });
-//        btnTest.setOnAction(new EventHandler<ActionEvent>() {
+
+//        btn.setOnAction(new EventHandler<ActionEvent>() {
 //            @Override
 //            public void handle(ActionEvent event) {
 //                try {
-//                    System.out.println(databaseInteraction.grabDataCell());
-//                    //System.out.println(databaseInteraction.getGameList());
+//                    if (data.dataBaseSearch(tf.getText()) == true) {
+//                        System.out.println("found");
+//                    }
 //                } catch (IOException ex) {
-//                    Logger.getLogger(GameInventoryManager.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //            }
 //        });
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    if (data.dataBaseSearch(tf.getText()) == true) {
-                        System.out.println("found");
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
         btnSearch.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -234,5 +233,10 @@ public class datapage extends mainController {
 
     public Group getGroup() {
         return root;
+    }
+
+  
+    public void hideStage(Stage primaryStage) {
+        primaryStage.hide();
     }
 }
