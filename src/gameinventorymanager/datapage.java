@@ -193,14 +193,10 @@ public class datapage
 
       Button addGame = new Button("Add Game");
       textBoxes.add(addGame, 4, 3);
-
       Library lB = new Library();
-//      Game g1 = new Game(0, "saw", "alber", 40.00, "aa", "aa", 20, "aa", 30.00, 40.00, "true", "alfa", "beta");
-//      lB.games.add(g1);
-//      lB.writeObject(lB.games);
-      lB.readObject();
       TableView table = new TableView();
       table.setEditable(true);
+
 
       TableColumn<Game, Integer> position = new TableColumn<>("position");
       position.setCellValueFactory(new PropertyValueFactory<>("position"));
@@ -338,6 +334,13 @@ public class datapage
 
       table.getColumns().addAll(position, title, discription, cost, publisher, publishedIn, campaign, developer, rating, achivements, multiplayer, genre, franchise);
       table.getItems().addAll(lB.games);
+//      Game g1 = new Game(0, "saw", "alber", 40.00, "aa", "aa", 20, "aa", 30.00, 40.00, "true", "alfa", "beta");
+//      lB.games.add(g1);
+//      lB.writeObject(lB.games);
+      lB.readObject();
+      table.getItems().addAll(lB.games);
+
+
 
       listDisplay.getChildren().add(table);
       listDisplay.setLayoutX(100);
@@ -355,6 +358,7 @@ public class datapage
          {
             try {
 //               Library lB = new Library();
+
                int hours = Integer.parseInt(dbHourPlayed.getText());
                costDouble = Double.parseDouble(dbCost.getText());
                lengthInt = Integer.parseInt(dbLength.getText());
@@ -364,10 +368,11 @@ public class datapage
                lB.games.add(addGame);
 
 //               lB.readObject();
-               table.getItems().clear();
-               table.getItems().addAll(lB.games);
+
                lB.writeObject(lB.games);
 //                    listDisplay.getChildren().add(table);
+               table.getItems().clear();
+               table.getItems().addAll(lB.games);
             }
             catch (IOException ex) {
                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
@@ -409,6 +414,11 @@ public class datapage
 
          }
       });
+
+   }
+
+   public void refreshTable ()
+   {
 
    }
 
