@@ -2,7 +2,6 @@ package gameinventorymanager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -12,8 +11,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -22,6 +25,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 /**
  *
@@ -39,16 +44,16 @@ public class datapage {
     displayPage secondPage = new displayPage();
     Stage primaryStage;
 
-    public void start(Stage primaryStage) throws FileNotFoundException, IOException {
+    public void start(Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException {
+
         buildStage();
         primaryStage.setTitle("Game Inventory Manager");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void buildStage() throws IOException {
-        databaseInteraction data = new databaseInteraction();
-
+    public void buildStage() throws IOException, ClassNotFoundException {
+        
         root.getChildren().add(pane);
         //new textFields for the inventory search.
         StackPane userOptions = new StackPane();
@@ -177,26 +182,182 @@ public class datapage {
         textBoxes.add(dbPlatform, 3, 7);
         dbPlatform.setPromptText("Platform...");
 
-        //TextArea for dataBase display
-        TextArea displayData = new TextArea(formattedList());
-        listDisplay.getChildren().add(displayData);
-        //setting a layout for our new ListDisplay
+        
+        
+        Library lB = new Library();
+        //gameList.addGame();
+        Game g1 = new Game (0, "saw", "alber", 40.00,"aa","aa",20,"aa",30.00,40.00,true,"alfa","beta");
+        lB.games.add(g1);
+        lB.writeObject(lB.games);
+        lB.readObject();
+        TableView table = new TableView();
+        table.setEditable(true);
+
+        TableColumn<Game, Integer> position = new TableColumn<>("position");
+        position.setCellValueFactory(new PropertyValueFactory<>("position"));
+        position.setCellFactory(TextFieldTableCell.<Game, Integer>forTableColumn(new IntegerStringConverter()));
+        position.setOnEditCommit((TableColumn.CellEditEvent<Game, Integer> event) -> {
+            TablePosition<Game, Integer> pos = event.getTablePosition();
+
+            Integer newValue = event.getNewValue();
+
+            int row = pos.getRow();
+            Game game = event.getTableView().getItems().get(row);
+            game.setPosition(newValue);
+            try {
+                lB.writeObject(lB.games);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        TableColumn<Game, String> title = new TableColumn<>("Title");
+        title.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        title.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+        title.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+            TablePosition<Game, String> pos = event.getTablePosition();
+
+            String newGameTitle = event.getNewValue();
+
+            int row = pos.getRow();
+            Game game = event.getTableView().getItems().get(row);
+            game.setTitle(newGameTitle);
+            try {
+                lB.writeObject(lB.games);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        TableColumn< Game, String> discription = new TableColumn("Discription");
+        discription.setCellValueFactory(new PropertyValueFactory<>("Discription"));
+        discription.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+        discription.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+            TablePosition<Game, String> pos = event.getTablePosition();
+
+            String newValue = event.getNewValue();
+
+            int row = pos.getRow();
+            Game game = event.getTableView().getItems().get(row);
+            game.setDiscription(newValue);
+            try {
+                lB.writeObject(lB.games);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        TableColumn<Game, Double> cost = new TableColumn("Cost");
+        cost.setCellValueFactory(new PropertyValueFactory<>("Cost"));
+        cost.setCellFactory(TextFieldTableCell.<Game, Double>forTableColumn((new DoubleStringConverter())));
+        cost.setOnEditCommit((TableColumn.CellEditEvent<Game, Double> event) -> {
+            TablePosition<Game, Double> pos = event.getTablePosition();
+
+            Double newValue = event.getNewValue();
+
+            int row = pos.getRow();
+            Game game = event.getTableView().getItems().get(row);
+            game.setCost(newValue);
+            try {
+                lB.writeObject(lB.games);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        TableColumn< Game, String> publisher = new TableColumn("Publisher");
+        publisher.setCellValueFactory(new PropertyValueFactory<>("Publisher"));
+        publisher.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+        publisher.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+            TablePosition<Game, String> pos = event.getTablePosition();
+
+            String newValue = event.getNewValue();
+
+            int row = pos.getRow();
+            Game game = event.getTableView().getItems().get(row);
+            game.setPublisher(newValue);
+
+            try {
+                lB.writeObject(lB.games);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        TableColumn<Game,String> publishedIn = new TableColumn("Date Published");
+        publishedIn.setCellValueFactory(new PropertyValueFactory<>("PublishedIn"));
+        publishedIn.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+        publishedIn.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+            TablePosition<Game, String> pos = event.getTablePosition();
+
+            String newValue = event.getNewValue();
+
+            int row = pos.getRow();
+            Game game = event.getTableView().getItems().get(row);
+            game.setPublishedIn(newValue);
+            try {
+                lB.writeObject(lB.games);
+            } catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        TableColumn campaign = new TableColumn("Campaign");
+        campaign.setCellValueFactory(new PropertyValueFactory<>("Campaign"));
+
+        TableColumn developer = new TableColumn("Developer");
+        developer.setCellValueFactory(new PropertyValueFactory<>("Developer"));
+
+        TableColumn rating = new TableColumn("Rating");
+        rating.setCellValueFactory(new PropertyValueFactory<>("Rating"));
+
+        TableColumn achivements = new TableColumn("Achivements");
+        achivements.setCellValueFactory(new PropertyValueFactory<>("Achivements"));
+
+        TableColumn multiplayer = new TableColumn("Multiplayer");
+        multiplayer.setCellValueFactory(new PropertyValueFactory<>("Multiplayer"));
+
+        TableColumn genre = new TableColumn("Genre");
+        genre.setCellValueFactory(new PropertyValueFactory<>("Genre"));
+
+        TableColumn franchise = new TableColumn("Franchise");
+        franchise.setCellValueFactory(new PropertyValueFactory<>("Franchise"));
+
+        table.getColumns().addAll(position, title, discription, cost, publisher, publishedIn, campaign, developer, rating, achivements, multiplayer, genre, franchise);
+        table.getItems().addAll(lB.games);
+
+        listDisplay.getChildren().add(table);
         listDisplay.setLayoutX(100);
         listDisplay.setLayoutY(430);
-
-        //adding everything into the stage
+        
         root.getChildren().add(listDisplay);
         userOptions.getChildren().add(textBoxes);
         root.getChildren().add(btn);
         root.getChildren().add(btnSearch);
 
-        //EventHandler for Search Button, can use to find anything in our list
+        tf.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+//        btn.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                try {
+//                    if (data.dataBaseSearch(tf.getText()) == true) {
+//                        System.out.println("found");
+//                    }
+//                } catch (IOException ex) {
+//                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
         btnSearch.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String keyword = tf.getText();
                 try {
-                    if (data.dataBaseSearch(keyword) == true) {
+                    if (lB.dataBaseSearch(keyword) == true) {
                         System.out.println("true");
                     } else {
                         System.out.println("false");
@@ -207,16 +368,7 @@ public class datapage {
 
             }
         });
-    }
-    //Formatting our ArraList to remove square brackets
-    public static String formattedList() {
-        int num = 0, pos1 = 0, rows = 0;
-        String temp = Arrays.toString(
-                databaseInteraction.getGameList().toArray());
-        String sbTemp = temp.replace("[", "").replace("]", "");
-        temp = sbTemp;
-        //System.out.println(sbTemp);
-        return temp;
+
     }
 
     public TextField getTextField() {
@@ -230,4 +382,5 @@ public class datapage {
     public void hideStage(Stage primaryStage) {
         primaryStage.hide();
     }
+    
 }
