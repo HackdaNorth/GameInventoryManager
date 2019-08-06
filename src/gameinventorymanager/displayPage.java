@@ -35,20 +35,39 @@ public class displayPage extends mainController {
     String nameText, descText, pubText, datePubText, devText, genreText, francText, platText, mpText = "";
     double costDouble, achivDouble = 12 / 45, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
     int lengthInt = 0;
+    Library lB;
+    public void datapage() throws IOException {
+        lB = new Library();
+    }
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
+        populateData();
         buildStage();
         Scene sceneTwo = new Scene(rootTwo, 1400, 900, backgroundBlue);
         primaryStage.setTitle("Current Game:");
         primaryStage.setScene(sceneTwo);
         primaryStage.show();
     }
-//    public void populateData() throws IOException {
-//
-//        Library lB = new Library();
-//        nameText = games.lB.get(lB.gamePos).getTitle();
-//    }
+
+    public void populateData() throws IOException {
+
+        
+        System.out.println(lB.getGamePos());
+        nameText = lB.games.get(lB.getGamePos()).getTitle();
+        costDouble = lB.games.get(lB.getGamePos()).getCost();
+        hoursDouble = lB.games.get(lB.getGamePos()).getPosition();
+        pubText = lB.games.get(lB.getGamePos()).getPublisher();
+        datePubText = lB.games.get(lB.getGamePos()).getDiscription();
+        lengthInt = lB.games.get(lB.getGamePos()).getCampaign();
+        devText = lB.games.get(lB.getGamePos()).getDeveloper();
+        ratingDouble = lB.games.get(lB.getGamePos()).getRating();
+        datePubText = lB.games.get(lB.getGamePos()).getPublishedIn();
+        platText = lB.games.get(lB.getGamePos()).getFranchise();
+        genreText = lB.games.get(lB.getGamePos()).getGenre();
+        achivDouble = lB.games.get(lB.getGamePos()).getAchievements();
+    }
+
     public void buildStage() throws IOException {
         //Stack for information display
         StackPane displayInfo = new StackPane();
@@ -117,12 +136,10 @@ public class displayPage extends mainController {
         btnSearch.setLayoutX(455);
         btnSearch.setLayoutY(825);
         Library lB = new Library();
-        
+
         //replace "placeholder" to whatever our database displays
 //        datapage dp = new datapage();
 //        double cost = dp.getCost()
-    
-
         //Creating info display
         GridPane textBoxes = new GridPane();
         textBoxes.setPadding(new Insets(40));

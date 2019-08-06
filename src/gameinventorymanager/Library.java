@@ -75,19 +75,25 @@ public class Library
 
    public boolean dataBaseSearch (String keyword) throws IOException
    {
+        for (int i = 0; i < getGames().size(); i++) {
+            Game temp = getGames().get(i);
+            String sTemp = temp.toString();
+            String toLowerCase = sTemp.toLowerCase();
+            keyword = keyword.toLowerCase();
+            if (toLowerCase.contains(keyword)) {
+                setGamePos(getGames().indexOf(temp));
+                System.out.println(getGamePos());
+                return true;
+            }
+        }
+        return false;
+    }
 
-      for (int i = 0; i < games.size(); i++) {
-         Game temp = games.get(i);
-         String sTemp = temp.toString();
-         sTemp.toLowerCase();
-         keyword = keyword.toLowerCase();
-         if (sTemp.contains(keyword)) {
-            gamePos = games.indexOf(temp);
-            return true;
-         }
-      }
-      return false;
-   }
+    public int getGamePos() {
+        return gamePos;
+    }
 
-
+    public void setGamePos(int gamePos) {
+        this.gamePos = gamePos;
+    }
 }
