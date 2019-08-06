@@ -29,8 +29,8 @@ public class mainController extends Application {
         datapage mainPage = new datapage();
         displayPage secondPage = new displayPage();
         
-        //secondPage.start(primaryStage);
-        mainPage.start(primaryStage);
+        secondPage.start(primaryStage);
+        //mainPage.start(primaryStage);
         //this is an example of how to switch between stages. You can cut and paste this method in order to switch.
         //It takes the secondary stage form displayPage.
         mainPage.btn.setOnAction((ActionEvent event) -> {

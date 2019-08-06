@@ -32,6 +32,9 @@ public class displayPage extends mainController {
     Color darkBlueAccent = Color.web("#2D59BF");
     Color darkGrey = Color.web("#9E9F9F");
     Scene sceneTwo;
+    String nameText, descText, pubText, datePubText, devText, genreText, francText, platText, mpText = "";
+    double costDouble, achivDouble = 12 / 45, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
+    int lengthInt = 0;
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException, IOException {
@@ -41,8 +44,12 @@ public class displayPage extends mainController {
         primaryStage.setScene(sceneTwo);
         primaryStage.show();
     }
-
-    public void buildStage() {
+//    public void populateData() throws IOException {
+//
+//        Library lB = new Library();
+//        nameText = games.lB.get(lB.gamePos).getTitle();
+//    }
+    public void buildStage() throws IOException {
         //Stack for information display
         StackPane displayInfo = new StackPane();
         VBox extraInfo = new VBox();
@@ -109,9 +116,12 @@ public class displayPage extends mainController {
         btnSearch.setPrefWidth(100);
         btnSearch.setLayoutX(455);
         btnSearch.setLayoutY(825);
-
+        Library lB = new Library();
+        
         //replace "placeholder" to whatever our database displays
-        String placeholder = "placeholder";
+//        datapage dp = new datapage();
+//        double cost = dp.getCost()
+    
 
         //Creating info display
         GridPane textBoxes = new GridPane();
@@ -119,80 +129,80 @@ public class displayPage extends mainController {
         textBoxes.setHgap(40);
         textBoxes.setVgap(40);
 
-        Label dbName = new Label(placeholder);
+        Label dbName = new Label(nameText);
         Label lbName = new Label("Name:");
         textBoxes.add(lbName, 1, 0);
         textBoxes.add(dbName, 1, 1);
         //dbName.setPromptText("Name...");
 
         Label lbCost = new Label("Cost:");
-        Label dbCost = new Label(placeholder);
+        Label dbCost = new Label(String.valueOf(costDouble));
         textBoxes.add(lbCost, 3, 0);
         textBoxes.add(dbCost, 3, 1);
         //dbCost.setPromptText("Cost...");
 
         Label lbHoursPlayed = new Label("Hours played:");
-        Label dbHourPlayed = new Label(placeholder);
+        Label dbHourPlayed = new Label(String.valueOf(hoursDouble));
         textBoxes.add(lbHoursPlayed, 1, 8);
         textBoxes.add(dbHourPlayed, 1, 9);
         //dbHourPlayed.setPromptText("Hours Played...");
 
         Label lbMP = new Label("Multiplayer:");
-        Label dbMP = new Label(placeholder);
+        Label dbMP = new Label("false");
         textBoxes.add(lbMP, 5, 0);
         textBoxes.add(dbMP, 5, 1);
         //dbMP.setPromptText("Multiplayer...");
 
         Label lbPublisher = new Label("Publisher:");
-        Label dbPublisher = new Label(placeholder);
+        Label dbPublisher = new Label(pubText);
         textBoxes.add(lbPublisher, 1, 2);
         textBoxes.add(dbPublisher, 1, 3);
         //dbPublisher.setPromptText("Publisher...");
 
         Label lbDateMade = new Label("Date Made:");
-        Label dbDateMade = new Label(placeholder);
+        Label dbDateMade = new Label(datePubText);
         textBoxes.add(lbDateMade, 3, 2);
         textBoxes.add(dbDateMade, 3, 3);
         //dbDateMade.setPromptText("Date Made...");
 
         Label lbLength = new Label("Length:");
-        Label dbLength = new Label(placeholder);
+        Label dbLength = new Label(String.valueOf(lengthInt));
         textBoxes.add(lbLength, 3, 8);
         textBoxes.add(dbLength, 3, 9);
         //dbLength.setPromptText("Length...");
 
         Label lbDeveloper = new Label("Developer:");
-        Label dbDeveloper = new Label(placeholder);
+        Label dbDeveloper = new Label(devText);
         textBoxes.add(lbDeveloper, 1, 4);
         textBoxes.add(dbDeveloper, 1, 5);
         //dbDeveloper.setPromptText("Developer...");
 
         Label lbRating = new Label("Rating:");
-        Label dbRating = new Label(placeholder);
+        Label dbRating = new Label(String.valueOf(ratingDouble));
         textBoxes.add(lbRating, 3, 4);
         textBoxes.add(dbRating, 3, 5);
         //dbRating.setPromptText("Rating...");
 
         Label lbDatePurchased = new Label("Date Purchased:");
-        Label dbDatePurchased = new Label(placeholder);
+        Label dbDatePurchased = new Label(datePubText);
         textBoxes.add(lbDatePurchased, 3, 10);
         textBoxes.add(dbDatePurchased, 3, 11);
         //dbDatePurchased.setPromptText("Date Purchased...");
 
         Label lbPlatform = new Label("Platform:");
-        Label dbPlatform = new Label(placeholder);
+        Label dbPlatform = new Label(platText);
         textBoxes.add(lbPlatform, 1, 10);
         textBoxes.add(dbPlatform, 1, 11);
         //dbPlatform.setPromptText("Platform...");
 
         Label lbAchievements = new Label("Achievements:");
-        Label dbAchievements = new Label(placeholder);
+        Label dbAchievements = new Label(String.valueOf(achivDouble));
         textBoxes.add(lbAchievements, 1, 6);
         textBoxes.add(dbAchievements, 1, 7);
         //dbAchievements.setPromptText("Achievements...");
 
         Label lbGenre = new Label("Genre:");
-        Label dbGenre = new Label(placeholder);
+        Label dbGenre = new Label(genreText);
         textBoxes.add(lbGenre, 3, 6);
         textBoxes.add(dbGenre, 3, 7);
         //dbGenre.setPromptText("Genre...");

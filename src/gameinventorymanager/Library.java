@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class Library {
 
     public ArrayList<Game> games = new ArrayList<>();
+    public int gamePos = 0;
 
     private RandomAccessFile database;
 
@@ -64,17 +65,19 @@ public class Library {
 
     }
         public boolean dataBaseSearch(String keyword) throws IOException {
+
         for (int i = 0; i < games.size(); i++) {
             Game temp = games.get(i);
             String sTemp = temp.toString();
             sTemp.toLowerCase();
             keyword = keyword.toLowerCase();
             if (sTemp.contains(keyword)) {
-                System.out.println(temp);
+                gamePos = games.indexOf(temp);
                 return true;
             }
         }
         return false;
     }
+
 
 }

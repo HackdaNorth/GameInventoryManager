@@ -43,6 +43,10 @@ public class datapage {
     Button btn = new Button();
     displayPage secondPage = new displayPage();
     Stage primaryStage;
+    String nameText, descText, pubText, datePubText, devText, genreText, francText, platText = "";
+    double costDouble, achivDouble = 12 / 45, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
+    int lengthInt = 0;
+    boolean multiplayer;
 
     public void start(Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException {
 
@@ -53,7 +57,7 @@ public class datapage {
     }
 
     public void buildStage() throws IOException, ClassNotFoundException {
-        
+
         root.getChildren().add(pane);
         //new textFields for the inventory search.
         StackPane userOptions = new StackPane();
@@ -104,7 +108,7 @@ public class datapage {
         tf.setLayoutY(400);
         root.getChildren().add(tf);
 
-        TextField dbName = new TextField();
+        TextField dbName = new TextField(nameText);
         Label lbName = new Label("Name:");
         textBoxes.add(lbName, 1, 0);
         textBoxes.add(dbName, 1, 1);
@@ -129,7 +133,7 @@ public class datapage {
         dbMP.setPromptText("Multiplayer...");
 
         Label lbPublisher = new Label("Publisher");
-        TextField dbPublisher = new TextField();
+        TextField dbPublisher = new TextField(pubText);
         textBoxes.add(lbPublisher, 1, 2);
         textBoxes.add(dbPublisher, 1, 3);
         dbPublisher.setPromptText("Publisher...");
@@ -142,12 +146,13 @@ public class datapage {
 
         Label lbLength = new Label("Length");
         TextField dbLength = new TextField();
+
         textBoxes.add(lbLength, 3, 2);
         textBoxes.add(dbLength, 3, 3);
         dbLength.setPromptText("Length...");
 
         Label lbDeveloper = new Label("Developer");
-        TextField dbDeveloper = new TextField();
+        TextField dbDeveloper = new TextField(devText);
         textBoxes.add(lbDeveloper, 1, 4);
         textBoxes.add(dbDeveloper, 1, 5);
         dbDeveloper.setPromptText("Developer...");
@@ -159,34 +164,35 @@ public class datapage {
         dbRating.setPromptText("Rating...");
 
         Label lbDatePurchased = new Label("Date Purchased");
-        TextField dbDatePurchased = new TextField();
+        TextField dbDatePurchased = new TextField(datePubText);
         textBoxes.add(lbDatePurchased, 3, 4);
         textBoxes.add(dbDatePurchased, 3, 5);
         dbDatePurchased.setPromptText("Date Purchased...");
 
         Label lbAchievements = new Label("Achievements");
         TextField dbAchievements = new TextField();
+
         textBoxes.add(lbAchievements, 1, 6);
         textBoxes.add(dbAchievements, 1, 7);
         dbAchievements.setPromptText("Achievements...");
 
         Label lbGenre = new Label("Genre");
-        TextField dbGenre = new TextField();
+        TextField dbGenre = new TextField(genreText);
         textBoxes.add(lbGenre, 2, 6);
         textBoxes.add(dbGenre, 2, 7);
         dbGenre.setPromptText("Genre...");
 
         Label lbPlatform = new Label("Platform");
-        TextField dbPlatform = new TextField();
+        TextField dbPlatform = new TextField(platText);
         textBoxes.add(lbPlatform, 3, 6);
         textBoxes.add(dbPlatform, 3, 7);
         dbPlatform.setPromptText("Platform...");
 
-        
-        
+        Button addGame = new Button("Add Game");
+        textBoxes.add(addGame, 4, 3);
+
         Library lB = new Library();
-        //gameList.addGame();
-        Game g1 = new Game (0, "saw", "alber", 40.00,"aa","aa",20,"aa",30.00,40.00,true,"alfa","beta");
+        Game g1 = new Game(0, "saw", "alber", 40.00, "aa", "aa", 20, "aa", 30.00, 40.00, "true", "alfa", "beta");
         lB.games.add(g1);
         lB.writeObject(lB.games);
         lB.readObject();
@@ -283,7 +289,7 @@ public class datapage {
             }
         });
 
-        TableColumn<Game,String> publishedIn = new TableColumn("Date Published");
+        TableColumn<Game, String> publishedIn = new TableColumn("Date Published");
         publishedIn.setCellValueFactory(new PropertyValueFactory<>("PublishedIn"));
         publishedIn.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
         publishedIn.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
@@ -327,16 +333,35 @@ public class datapage {
         listDisplay.getChildren().add(table);
         listDisplay.setLayoutX(100);
         listDisplay.setLayoutY(430);
-        
+
         root.getChildren().add(listDisplay);
         userOptions.getChildren().add(textBoxes);
         root.getChildren().add(btn);
         root.getChildren().add(btnSearch);
 
-        tf.setOnAction(new EventHandler<ActionEvent>() {
+        addGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                try {
+                    Library lB = new Library();
+                    int hours = Integer.parseInt(dbHourPlayed.getText());
+                    costDouble = Double.parseDouble(dbCost.getText());
+                    lengthInt = Integer.parseInt(dbLength.getText());
+                    achivDouble = Double.parseDouble(dbAchievements.getText());
+                    ratingDouble = Double.parseDouble(dbRating.getText());
+                    Game addGame = new Game(hours, dbName.getText(), dbDateMade.getText(), costDouble, dbPublisher.getText(), dbDatePurchased.getText(), lengthInt, dbDeveloper.getText(), ratingDouble, achivDouble, dbMP.getText(), dbGenre.getText(), dbPlatform.getText());
+                    lB.games.add(addGame);
+                    lB.writeObject(lB.games);
+                    lB.readObject();
+                    table.getItems().addAll(lB.games);
+                    listDisplay.getChildren().add(table);
+                } catch (IOException ex) {
+                    Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -382,5 +407,5 @@ public class datapage {
     public void hideStage(Stage primaryStage) {
         primaryStage.hide();
     }
-    
+
 }

@@ -21,13 +21,13 @@ public class Game implements Serializable {
     private String developer;
     private double rating;
     private double achievements;
-    private boolean multiplayer;
+    private String multiplayer;
     private String genre;
     private String franchise;
 
     public Game(int position, String title, String discription, double cost,
             String publisher, String publishedIn, int campaign, String developer,
-            double rating, double achivements, boolean multiplayer, String genre, String franchise) {
+            double rating, double achivements, String multiplayer, String genre, String franchise) {
         this.position = (position);
         this.title = (title);
         this.discription = (discription);
@@ -44,6 +44,7 @@ public class Game implements Serializable {
 
     }
 
+   
     @Override
     public String toString() {
         return new StringBuffer(" Game Title: ").append(this.getTitle())
@@ -218,14 +219,14 @@ public class Game implements Serializable {
     /**
      * @return the multiplayer
      */
-    public boolean isMultiplayer() {
+    public String isMultiplayer() {
         return multiplayer;
     }
 
     /**
      * @param multiplayer the multiplayer to set
      */
-    public void setMultiplayer(boolean multiplayer) {
+    public void setMultiplayer(String multiplayer) {
         this.multiplayer = multiplayer;
     }
 
@@ -257,8 +258,10 @@ public class Game implements Serializable {
         this.franchise = franchise;
     }
 
-    public void addGame(int pos, String title, String desc, double Cost, String pub, String datePub, int campaignLength, String dev, double rating, int achivements, boolean Multiplayer, String genre, String Franc) throws IOException, ClassNotFoundException {
+    public void addGame(int pos, String title, String desc, double Cost, String pub, String datePub, int campaignLength, String dev, double rating, int achivements, String Multiplayer, String genre, String Franc) throws IOException, ClassNotFoundException {
         Library lB = new Library();
+        datapage dP = new datapage();
+        this.title = dP.nameText;
         Game addGame = new Game(pos, title, desc, Cost, pub, datePub, campaignLength, dev, rating, achivements, Multiplayer, genre, Franc);
         lB.games.add(addGame);
         lB.writeObject(lB.games);
