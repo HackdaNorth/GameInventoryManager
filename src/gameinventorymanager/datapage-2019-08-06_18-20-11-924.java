@@ -198,7 +198,7 @@ public class datapage
 //      Game g1 = new Game(0, "saw", "alber", 40.00, "aa", "aa", 20, "aa", 30.00, 40.00, "true", "alfa", "beta");
 //      lB.games.add(g1);
 //      lB.writeObject(lB.games);
-      lB.readObject();
+//      lB.readObject();
       TableView table = new TableView();
       table.setEditable(true);
 
@@ -364,7 +364,6 @@ public class datapage
                lB.games.add(addGame);
 
 //               lB.readObject();
-               table.getItems().clear();
                table.getItems().addAll(lB.games);
                lB.writeObject(lB.games);
 //                    listDisplay.getChildren().add(table);
