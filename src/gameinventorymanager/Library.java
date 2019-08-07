@@ -8,7 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -28,7 +30,9 @@ public class Library {
         } catch (FileNotFoundException e) {
             System.out.println("File Can't be found");
         }
+
     }
+
     /**
      * @return the games
      */

@@ -7,7 +7,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -15,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -96,8 +96,8 @@ public class displayPage extends mainController {
 
         infoRec.setLayoutX(90);
         infoRec.setLayoutY(90);
-        displayInfo.setLayoutX(90);
-        displayInfo.setLayoutY(90);
+        displayInfo.setLayoutX(140);
+        displayInfo.setLayoutY(110);
 
         //Image rec display 
         Rectangle recPicture = new Rectangle(500, 425, darkBlueAccent);
@@ -173,8 +173,8 @@ public class displayPage extends mainController {
 
         Label lbMP = new Label("Multiplayer:");
         dbMP = new Label("false");
-        textBoxes.add(lbMP, 5, 0);
-        textBoxes.add(dbMP, 5, 1);
+        textBoxes.add(lbMP, 3, 4);
+        textBoxes.add(dbMP, 3, 5);
         //dbMP.setPromptText("Multiplayer...");
 
         Label lbPublisher = new Label("Publisher:");
@@ -201,10 +201,13 @@ public class displayPage extends mainController {
         textBoxes.add(dbDeveloper, 1, 5);
         //dbDeveloper.setPromptText("Developer...");
 
-
+        
         dbRating = new Label();
-        dbRating.setLayoutX(990);
-        dbRating.setLayoutY(550);
+        dbRating.setScaleX(5);
+        dbRating.setScaleY(5);
+
+        dbRating.setLayoutX(1010);
+        dbRating.setLayoutY(565);
 
         //dbRating.setPromptText("Rating...");
 

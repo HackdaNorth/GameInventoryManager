@@ -46,7 +46,7 @@ public class datapage {
     Button removeGame;
     String nameText, descText, pubText, datePubText, devText, genreText, 
             francText, platText = "";
-    double costDouble, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
+    double costDouble, ratingDouble, campDouble = 00.0, hoursDouble = 0.0;
     int lengthInt = 0, achivInt;
 
     public void start(Stage primaryStage) throws FileNotFoundException, 
