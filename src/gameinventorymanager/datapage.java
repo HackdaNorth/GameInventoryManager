@@ -493,18 +493,22 @@ public class datapage
          }
       });
 
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                try {
-//                    if (data.dataBaseSearch(tf.getText()) == true) {
-//                        System.out.println("found");
-//                    }
-//                } catch (IOException ex) {
-//                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        });
+      //        btn.setOnAction(new EventHandler<ActionEvent>() {
+      //            @Override
+      //            public void handle(ActionEvent event) {
+      //                try {
+      //                    if (data.dataBaseSearch(tf.getText()) == true) {
+      //                        System.out.println("found");
+      //                    }
+      //                } catch (IOException ex) {
+      //                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+      //                }
+      //            }
+      //        });
+
+
+
+
       btnSearch.setOnAction(new EventHandler<ActionEvent>()
       {
          @Override
@@ -524,28 +528,25 @@ public class datapage
                Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
             }
          }
+
+
+
+
+
+         public TextField getTextField ()
+         {
+            return tf;
+         }
+
+         public Group getGroup ()
+         {
+            return root;
+         }
+
+         public void hideStage (Stage primaryStage)
+         {
+            primaryStage.hide();
+         }
       });
-
    }
-
-   public void refreshTable ()
-   {
-
-   }
-
-   public TextField getTextField ()
-   {
-      return tf;
-   }
-
-   public Group getGroup ()
-   {
-      return root;
-   }
-
-   public void hideStage (Stage primaryStage)
-   {
-      primaryStage.hide();
-   }
-
 }
