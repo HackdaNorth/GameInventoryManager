@@ -75,13 +75,24 @@ public class Library {
             keyword = keyword.toLowerCase();
             if (toLowerCase.contains(keyword)) {
                 setGamePos(getGames().indexOf(temp)); 
-                System.out.println(getGamePos());
                 return true;
             }
         }
         return false;
     }
-
+    public int getSearch(String keyword, Library lB) throws IOException, ClassNotFoundException {
+        for (int i = 0; i < lB.getGames().size(); i++) {
+            Game temp = lB.getGames().get(i);
+            String sTemp = temp.toString();
+            String toLowerCase = sTemp.toLowerCase();
+            keyword = keyword.toLowerCase();
+            if (toLowerCase.contains(keyword)) {
+                lB.setGamePos(lB.getGames().indexOf(temp));
+                return lB.getGamePos();
+            }
+        }
+        return lB.getGamePos();
+    }
     public int getGamePos() {
         return gamePos;
     }

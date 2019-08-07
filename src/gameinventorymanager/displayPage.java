@@ -38,6 +38,7 @@ public class displayPage extends mainController {
     Scene sceneTwo = new Scene(rootTwo, 1400, 900, backgroundBlue);
     Button btnSwitch = new Button("Switch Scene");
     TextField tfSearch = new TextField();
+    StackPane displayInfo = new StackPane();
 
     Label dbName, dbCost, dbDateMade, dbPublisher, dbDatePub, dbDeveloper, dbGenre,
             dbFranchise, dbPlatform, dbMP, dbHoursPlayed, dbLength, dbRating,
@@ -90,7 +91,7 @@ public class displayPage extends mainController {
         lB.readObject();
 
         //Stack for information display
-        StackPane displayInfo = new StackPane();
+
         VBox extraInfo = new VBox();
 
         //background Rec for DisplayInfo
@@ -253,24 +254,7 @@ public class displayPage extends mainController {
         dbDesc.setLayoutX(750);
         dbDesc.setLayoutY(675);
 
-        btnSearch.setOnAction((ActionEvent event) -> {
-            String keyword = tfSearch.getText();
-            try {
-                if (getSearch(keyword,lB) == 0) {
-                    System.out.println("No game Found!");
-                } else {
-                    int gamePos = getSearch(keyword, lB);
-                    populateData(lB, gamePos);
-                    displayInfo.getChildren().clear();
-                    displayInfo.getChildren().add(textBoxes);
-                    System.out.println("true");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(displayPage.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+
         displayInfo.getChildren().clear();
 
         displayInfo.getChildren().add(textBoxes);
@@ -279,25 +263,11 @@ public class displayPage extends mainController {
         rootTwo.getChildren().addAll(infoRec, displayInfo, extraInfo, recDesc,
                 descripRec, tfSearch, btnSearch, metaRec, iV, reviewBox,
                 logoView, lbDesc, btnSwitch);
-
     }
-
     public String getSearchBar() {
         String searchText = String.valueOf(tfSearch.getText());
         return searchText;
     }
 
-    public int getSearch(String keyword, Library lB) throws IOException, ClassNotFoundException {
-        for (int i = 0; i < lB.getGames().size(); i++) {
-            Game temp = lB.getGames().get(i);
-            String sTemp = temp.toString();
-            String toLowerCase = sTemp.toLowerCase();
-            keyword = keyword.toLowerCase();
-            if (toLowerCase.contains(keyword)) {
-                lB.setGamePos(lB.getGames().indexOf(temp));
-                return lB.getGamePos();
-            }
-        }
-        return lB.getGamePos();
-    }
+
 }
