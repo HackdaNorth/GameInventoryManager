@@ -73,8 +73,7 @@ public class Library
 
    }
 
-   public boolean dataBaseSearch (String keyword) throws IOException
-   {
+   public boolean dataBaseSearch (String keyword) throws IOException {
         for (int i = 0; i < getGames().size(); i++) {
             Game temp = getGames().get(i);
             String sTemp = temp.toString();
@@ -82,7 +81,7 @@ public class Library
             keyword = keyword.toLowerCase();
             if (toLowerCase.contains(keyword)) {
                 setGamePos(getGames().indexOf(temp));
-                System.out.println(getGamePos());
+                //System.out.println(getGamePos());
                 return true;
             }
         }

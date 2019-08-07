@@ -51,7 +51,7 @@ public class datapage
 
    public void start (Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException
    {
-
+      root.getChildren().clear();
       buildStage();
       primaryStage.setTitle("Game Inventory Manager");
       primaryStage.setScene(scene);
@@ -397,7 +397,6 @@ public class datapage
       btnSearch.setOnAction(new EventHandler<ActionEvent>() {
           @Override
           public void handle(ActionEvent event) {
-              displayPage dp = new displayPage();
               String keyword = tf.getText();
               try {
                   if (lB.dataBaseSearch(keyword) == true) {

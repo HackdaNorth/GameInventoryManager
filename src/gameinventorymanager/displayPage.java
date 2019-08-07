@@ -28,60 +28,63 @@ import javafx.stage.Stage;
  */
 public class displayPage extends mainController {
 
-    TextField tf;
+
     Group rootTwo = new Group();
-    HBox pane = new HBox();
+
     Color backgroundBlue = Color.web("#0086FF");
     Color goldAccent = Color.web("#FFAA00");
     Color darkBlueAccent = Color.web("#2D59BF");
     Color darkGrey = Color.web("#9E9F9F");
-    Scene sceneTwo;
-    String nameText, costText, descText, pubText, datePubText, devText, genreText, francText, platText, mpText = "";
+    Scene sceneTwo = new Scene(rootTwo, 1400, 900, backgroundBlue);
+    Button btnSwitch = new Button("Switch Scene");
+
     double costDouble, achivDouble, ratingDouble = 00, campDouble = 00.0, hoursDouble = 0.0;
     int lengthInt = 0;
     Label dbName, dbCost;
     Library lB;
+
     public void displayPage() throws IOException {
         lB = new Library();
+        lB.games = lB.getGames();
     }
-
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException, IOException {
-       
-        buildStage();
-        Scene sceneTwo = new Scene(rootTwo, 1400, 900, backgroundBlue);
+    public void start(Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException {
+        rootTwo.getChildren().clear();
+        buildStage();    
         primaryStage.setTitle("Current Game:");
         primaryStage.setScene(sceneTwo);
         primaryStage.show();
 
     }
-   public void populateData() throws IOException {
+
+    public void populateData(Library lB) throws IOException {
+        String nameText, costText, descText, pubText, datePubText, devText, genreText, francText, platText, mpText = "";
 
         //nameText = lB.getGames().get(lB.getGamePos()).getTitle();
         //costText = String.valueOf(lB.getGames().get(lB.getGamePos()).getCost());
-        
-        dbName.setText("game");
+
+        dbName.setText("");
         //dbCost.setText("99.00");
 
-//        hoursDouble = lB.getGames().get(lB.getGamePos()).getPosition();
-//        pubText = lB.getGames().get(lB.getGamePos()).getPublisher();
-//        datePubText = lB.getGames().get(lB.getGamePos()).getDiscription();
-//        lengthInt = lB.getGames().get(lB.getGamePos()).getCampaign();
-//        devText = lB.getGames().get(lB.getGamePos()).getDeveloper();
-//        ratingDouble = lB.getGames().get(lB.getGamePos()).getRating();
-//        datePubText = lB.getGames().get(lB.getGamePos()).getPublishedIn();
-//        platText = lB.getGames().get(lB.getGamePos()).getFranchise();
-//        genreText = lB.getGames().get(lB.getGamePos()).getGenre();
-//        achivDouble = lB.getGames().get(lB.getGamePos()).getAchievements();   
+        hoursDouble = lB.getGames().get(lB.getGamePos()).getPosition();
+        pubText = lB.getGames().get(lB.getGamePos()).getPublisher();
+        datePubText = lB.getGames().get(lB.getGamePos()).getDiscription();
+        lengthInt = lB.getGames().get(lB.getGamePos()).getCampaign();
+        devText = lB.getGames().get(lB.getGamePos()).getDeveloper();
+        ratingDouble = lB.getGames().get(lB.getGamePos()).getRating();
+        datePubText = lB.getGames().get(lB.getGamePos()).getPublishedIn();
+        platText = lB.getGames().get(lB.getGamePos()).getFranchise();
+        genreText = lB.getGames().get(lB.getGamePos()).getGenre();
+        achivDouble = lB.getGames().get(lB.getGamePos()).getAchievements();   
     }
- 
 
-    public void buildStage() throws IOException {
-
+    public void buildStage() throws IOException, ClassNotFoundException {
+        Library lB = new Library();
         //Stack for information display
         StackPane displayInfo = new StackPane();
         VBox extraInfo = new VBox();
         Button btnPop = new Button("Populate");
+
         //background Rec for DisplayInfo
         Rectangle infoRec = new Rectangle(600, 700, goldAccent);
         infoRec.setArcWidth(30.0);
@@ -146,18 +149,19 @@ public class displayPage extends mainController {
         btnSearch.setLayoutY(825);
 
         btnPop.setPrefWidth(50);
-        btnPop.setLayoutX(445);
+        btnPop.setLayoutX(525);
         btnPop.setLayoutY(825);
-        //replace "placeholder" to whatever our database displays
-//        datapage dp = new datapage();
-//        double cost = dp.getCost()
+        
+        btnSwitch.setPrefWidth(50);
+        btnSwitch.setLayoutX(20);
+        btnSwitch.setLayoutY(20);
+
         //Creating info display
         GridPane textBoxes = new GridPane();
         textBoxes.setPadding(new Insets(40));
         textBoxes.setHgap(40);
         textBoxes.setVgap(40);
 
-        
         Label lbName = new Label("Name:");
         dbName = new Label();
         textBoxes.add(lbName, 1, 0);
@@ -183,13 +187,13 @@ public class displayPage extends mainController {
         //dbMP.setPromptText("Multiplayer...");
 
         Label lbPublisher = new Label("Publisher:");
-        Label dbPublisher = new Label(pubText);
+        Label dbPublisher = new Label();
         textBoxes.add(lbPublisher, 1, 2);
         textBoxes.add(dbPublisher, 1, 3);
         //dbPublisher.setPromptText("Publisher...");
 
         Label lbDateMade = new Label("Date Made:");
-        Label dbDateMade = new Label(datePubText);
+        Label dbDateMade = new Label();
         textBoxes.add(lbDateMade, 3, 2);
         textBoxes.add(dbDateMade, 3, 3);
         //dbDateMade.setPromptText("Date Made...");
@@ -201,7 +205,7 @@ public class displayPage extends mainController {
         //dbLength.setPromptText("Length...");
 
         Label lbDeveloper = new Label("Developer:");
-        Label dbDeveloper = new Label(devText);
+        Label dbDeveloper = new Label();
         textBoxes.add(lbDeveloper, 1, 4);
         textBoxes.add(dbDeveloper, 1, 5);
         //dbDeveloper.setPromptText("Developer...");
@@ -213,13 +217,13 @@ public class displayPage extends mainController {
         //dbRating.setPromptText("Rating...");
 
         Label lbDatePurchased = new Label("Date Purchased:");
-        Label dbDatePurchased = new Label(datePubText);
+        Label dbDatePurchased = new Label();
         textBoxes.add(lbDatePurchased, 3, 10);
         textBoxes.add(dbDatePurchased, 3, 11);
         //dbDatePurchased.setPromptText("Date Purchased...");
 
         Label lbPlatform = new Label("Platform:");
-        Label dbPlatform = new Label(platText);
+        Label dbPlatform = new Label();
         textBoxes.add(lbPlatform, 1, 10);
         textBoxes.add(dbPlatform, 1, 11);
         //dbPlatform.setPromptText("Platform...");
@@ -231,7 +235,7 @@ public class displayPage extends mainController {
         //dbAchievements.setPromptText("Achievements...");
 
         Label lbGenre = new Label("Genre:");
-        Label dbGenre = new Label(genreText);
+        Label dbGenre = new Label();
         textBoxes.add(lbGenre, 3, 6);
         textBoxes.add(dbGenre, 3, 7);
         //dbGenre.setPromptText("Genre...");
@@ -240,18 +244,35 @@ public class displayPage extends mainController {
         //lbDesc.setFont(50);
         lbDesc.setLayoutX(820);
         lbDesc.setLayoutY(560);
-        btnPop.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    populateData();
-                    displayInfo.getChildren().clear();
-                    displayInfo.getChildren().add(textBoxes);
-                } catch (IOException ex) {
-                    Logger.getLogger(displayPage.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        
+        btnPop.setOnAction((ActionEvent event) -> {
+            try {
+                populateData(lB);
+                displayInfo.getChildren().clear();
+                displayInfo.getChildren().add(textBoxes);
+            } catch (IOException ex) {
+                Logger.getLogger(displayPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String keyword = tfSearch.getText();
+               
+                try {
+                   // System.out.println(lB.dataBaseSearch(keyword));
+                    if (lB.dataBaseSearch(keyword) == true) {
+
+                        System.out.println("true");
+                    } else {
+                        System.out.println("false");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+                }        
+            }
+        });
+
         //dbGenre.setPromptText("Genre...");
         //textBoxes.setGridLinesVisible(true);
         displayInfo.getChildren().add(textBoxes);
@@ -259,7 +280,7 @@ public class displayPage extends mainController {
         //adding nodes to scenes
         rootTwo.getChildren().addAll(displayInfo, extraInfo, recDesc,
                 descripRec, tfSearch, btnSearch, metaRec, iV, reviewBox,
-                logoView, lbDesc, btnPop);
+                logoView, lbDesc, btnPop, btnSwitch);
 
     }
 
