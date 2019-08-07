@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -40,14 +40,17 @@ public class datapage {
     Color backgroundColor = Color.web("#FBDF55");
     Color blueAccent = Color.web("#669CF5");
     Scene scene = new Scene(root, 1400, 900, backgroundColor);
-    Button btn = new Button();
+    Button btnSearch = new Button();
     displayPage secondPage = new displayPage();
     Stage primaryStage;
-    String nameText, descText, pubText, datePubText, devText, genreText, francText, platText = "";
-    double costDouble, achivDouble = 12 / 45, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
-    int lengthInt = 0;
+    String nameText, descText, pubText, datePubText, devText, genreText, 
+            francText, platText = "";
+    double costDouble, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
+    int lengthInt = 0, achivInt;
 
-    public void start(Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void start(Stage primaryStage) throws FileNotFoundException, 
+            IOException, ClassNotFoundException 
+    {
         root.getChildren().clear();
         buildStage();
         primaryStage.setTitle("Game Inventory Manager");
@@ -56,7 +59,6 @@ public class datapage {
     }
 
     public void buildStage() throws IOException, ClassNotFoundException {
-
         root.getChildren().add(pane);
         //new textFields for the inventory search.
         StackPane userOptions = new StackPane();
@@ -92,11 +94,6 @@ public class datapage {
         rec2.setY(430);
         rec2.setX(100);
         listDisplay.getChildren().add(rec2);
-
-        btn.setText("OK");
-
-        //btn.setText("OKTest");
-        Button btnSearch = new Button();
         btnSearch.setText("Search");
         btnSearch.setLayoutX(100);
         btnSearch.setLayoutY(400);
@@ -353,13 +350,13 @@ public class datapage {
             }
         });
 
-        TableColumn<Game, Double> achivements = new TableColumn("Achivements");
+        TableColumn<Game, Integer> achivements = new TableColumn("Achivements");
         achivements.setCellValueFactory(new PropertyValueFactory<>("Achivements"));
-        achivements.setCellFactory(TextFieldTableCell.<Game, Double>forTableColumn((new DoubleStringConverter())));
-        achivements.setOnEditCommit((TableColumn.CellEditEvent<Game, Double> event) -> {
-            TablePosition<Game, Double> pos = event.getTablePosition();
+        achivements.setCellFactory(TextFieldTableCell.<Game, Integer>forTableColumn((new IntegerStringConverter())));
+        achivements.setOnEditCommit((TableColumn.CellEditEvent<Game, Integer> event) -> {
+            TablePosition<Game, Integer> pos = event.getTablePosition();
 
-            Double newValue = event.getNewValue();
+            int newValue = event.getNewValue();
 
             int row = pos.getRow();
             Game game = event.getTableView().getItems().get(row);
@@ -423,7 +420,9 @@ public class datapage {
             }
         });
 
-        table.getColumns().addAll(position, title, discription, cost, publisher, publishedIn, campaign, developer, rating, achivements, multiplayer, genre, franchise);
+        table.getColumns().addAll(position, title, discription, 
+                cost, publisher, publishedIn, campaign, developer, 
+                rating, achivements, multiplayer, genre, franchise);
         lB.readObject();
         table.getItems().addAll(lB.games);
 
@@ -431,67 +430,33 @@ public class datapage {
         listDisplay.setLayoutX(100);
         listDisplay.setLayoutY(430);
 
-        root.getChildren().add(listDisplay);
+        root.getChildren().addAll(listDisplay, btnSearch);
         userOptions.getChildren().add(textBoxes);
-        root.getChildren().add(btn);
-        root.getChildren().add(btnSearch);
+        
 
-        addGame.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-//               Library lB = new Library();
-
-                    int hours = Integer.parseInt(dbHourPlayed.getText());
-                    costDouble = Double.parseDouble(dbCost.getText());
-                    lengthInt = Integer.parseInt(dbLength.getText());
-                    achivDouble = Double.parseDouble(dbAchievements.getText());
-                    ratingDouble = Double.parseDouble(dbRating.getText());
-                    Game addGame = new Game(hours, dbName.getText(), dbDateMade.getText(), costDouble, dbPublisher.getText(), dbDatePurchased.getText(), lengthInt, dbDeveloper.getText(), ratingDouble, achivDouble, dbMP.getText(), dbGenre.getText(), dbPlatform.getText());
-                    lB.games.add(addGame);
-
-//               lB.readObject();
-                    lB.writeObject(lB.games);
-//                    listDisplay.getChildren().add(table);
-                    table.getItems().clear();
-                    table.getItems().addAll(lB.games);
-                } catch (IOException ex) {
-                    Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (ClassNotFoundException ex) {
-//                    Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                try {
-//                    if (data.dataBaseSearch(tf.getText()) == true) {
-//                        System.out.println("found");
-//                    }
-//                } catch (IOException ex) {
-//                    Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        });
-        btnSearch.setOnAction((ActionEvent event) -> {
-            displayPage dp = new displayPage();
-            String keyword = dp.tfSearch.getText();
-            try {
-                if (lB.getSearch(keyword, lB) == 0) {
-                    System.out.println("No game Found!");
-                } else {
-                    int gamePos = lB.getSearch(keyword, lB);
-                    dp.populateData(lB, gamePos);
-                    dp.displayInfo.getChildren().clear();
-                    dp.displayInfo.getChildren().add(textBoxes);
-                    System.out.println("true");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(displayPage.class.getName()).log(Level.SEVERE, null, ex);
+        addGame.setOnAction((ActionEvent event) -> {
+            try {                      
+                int hours = Integer.parseInt(dbHourPlayed.getText());
+                costDouble = Double.parseDouble(dbCost.getText());
+                lengthInt = Integer.parseInt(dbLength.getText());
+                achivInt = Integer.parseInt(dbAchievements.getText());
+                ratingDouble = Double.parseDouble(dbRating.getText());
+                Game addGame1 = new Game(hours, dbName.getText(), 
+                        dbDateMade.getText(), costDouble, dbPublisher.getText(),
+                        dbDatePurchased.getText(), lengthInt, 
+                        dbDeveloper.getText(), ratingDouble, achivInt,
+                        dbMP.getText(), dbGenre.getText(), 
+                        dbPlatform.getText());
+                
+                
+                lB.games.add(addGame1);
+                lB.writeObject(lB.games);
+                table.getItems().clear();
+                table.getItems().addAll(lB.games);
+            }catch (IOException ex) {
+                Logger.getLogger(datapage.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                
             }
         });
     }

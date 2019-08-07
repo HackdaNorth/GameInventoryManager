@@ -2,21 +2,15 @@ package gameinventorymanager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -36,16 +30,18 @@ public class displayPage extends mainController {
     Color darkBlueAccent = Color.web("#2D59BF");
     Color darkGrey = Color.web("#9E9F9F");
     Scene sceneTwo = new Scene(rootTwo, 1400, 900, backgroundBlue);
-    Button btnSwitch = new Button("Switch Scene");
-    TextField tfSearch = new TextField();
+    Button btnSwitch = new Button("<-- Go Back");
+
     StackPane displayInfo = new StackPane();
+    GridPane textBoxes;
 
     Label dbName, dbCost, dbDateMade, dbPublisher, dbDatePub, dbDeveloper, dbGenre,
             dbFranchise, dbPlatform, dbMP, dbHoursPlayed, dbLength, dbRating,
             dbDatePurchased, dbAchievements, dbDesc;
-
+  
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException {
+        
         rootTwo.getChildren().clear();
         buildStage();
         primaryStage.setTitle("Current Game:");
@@ -54,7 +50,7 @@ public class displayPage extends mainController {
 
     }
 
-    public void populateData(Library lB, int pos) throws IOException {
+    public void populateData(Library lB, int pos) throws IOException, ClassNotFoundException {
         int lengthInt;
         String achText, ratingText, campText, hoursText;
         String nameText, costText, descText, pubText, datePubText, devText, genreText, francText, platText, mpText = "";
@@ -91,14 +87,13 @@ public class displayPage extends mainController {
         lB.readObject();
 
         //Stack for information display
-
         VBox extraInfo = new VBox();
 
         //background Rec for DisplayInfo
         Rectangle infoRec = new Rectangle(600, 700, goldAccent);
         infoRec.setArcWidth(30.0);
         infoRec.setArcHeight(20.0);
-        
+
         infoRec.setLayoutX(90);
         infoRec.setLayoutY(90);
         displayInfo.setLayoutX(90);
@@ -147,23 +142,13 @@ public class displayPage extends mainController {
         descripRec.setX(750);
         descripRec.setY(675);
 
-        //search text and button
-        tfSearch.setPromptText("Search...");
-        tfSearch.setPrefWidth(300);
-        tfSearch.setLayoutX(150);
-        tfSearch.setLayoutY(825);
 
-        Button btnSearch = new Button("Search");
-        btnSearch.setPrefWidth(100);
-        btnSearch.setLayoutX(455);
-        btnSearch.setLayoutY(825);
-
-        btnSwitch.setPrefWidth(50);
+        btnSwitch.setPrefWidth(150);
         btnSwitch.setLayoutX(20);
         btnSwitch.setLayoutY(20);
 
         //Creating info display
-        GridPane textBoxes = new GridPane();
+        textBoxes = new GridPane();
         textBoxes.setPadding(new Insets(40));
         textBoxes.setHgap(40);
         textBoxes.setVgap(40);
@@ -216,10 +201,11 @@ public class displayPage extends mainController {
         textBoxes.add(dbDeveloper, 1, 5);
         //dbDeveloper.setPromptText("Developer...");
 
-        Label lbRating = new Label("Rating:");
+
         dbRating = new Label();
-        textBoxes.add(lbRating, 3, 4);
-        textBoxes.add(dbRating, 3, 5);
+        dbRating.setLayoutX(990);
+        dbRating.setLayoutY(550);
+
         //dbRating.setPromptText("Rating...");
 
         Label lbDatePurchased = new Label("Date Purchased:");
@@ -254,20 +240,11 @@ public class displayPage extends mainController {
         dbDesc.setLayoutX(750);
         dbDesc.setLayoutY(675);
 
-
         displayInfo.getChildren().clear();
-
         displayInfo.getChildren().add(textBoxes);
-
         //adding nodes to scenes
         rootTwo.getChildren().addAll(infoRec, displayInfo, extraInfo, recDesc,
-                descripRec, tfSearch, btnSearch, metaRec, iV, reviewBox,
-                logoView, lbDesc, btnSwitch);
+                descripRec, metaRec, iV, reviewBox,
+                logoView, lbDesc, btnSwitch, dbRating);
     }
-    public String getSearchBar() {
-        String searchText = String.valueOf(tfSearch.getText());
-        return searchText;
-    }
-
-
 }

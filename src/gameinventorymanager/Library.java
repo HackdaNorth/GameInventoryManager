@@ -8,9 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.TextField;
+
 
 /**
  *
@@ -81,13 +79,13 @@ public class Library {
         return false;
     }
     public int getSearch(String keyword, Library lB) throws IOException, ClassNotFoundException {
-        for (int i = 0; i < lB.getGames().size(); i++) {
-            Game temp = lB.getGames().get(i);
+        for (int i = 0; i < getGames().size(); i++) {
+            Game temp = getGames().get(i);
             String sTemp = temp.toString();
             String toLowerCase = sTemp.toLowerCase();
             keyword = keyword.toLowerCase();
             if (toLowerCase.contains(keyword)) {
-                lB.setGamePos(lB.getGames().indexOf(temp));
+                setGamePos(getGames().indexOf(temp));
                 return lB.getGamePos();
             }
         }

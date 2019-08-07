@@ -28,18 +28,30 @@ public class mainController extends Application {
         datapage mainPage = new datapage();
         displayPage secondPage = new displayPage();
 
-       secondPage.start(primaryStage);
-        //mainPage.start(primaryStage);
+        //loads mainStage
+        mainPage.start(primaryStage);
         //this is an example of how to switch between stages. You can cut and paste this method in order to switch.
         //It takes the secondary stage form displayPage.
-        mainPage.btn.setOnAction((ActionEvent event) -> {
-            System.out.println("working");
+        mainPage.btnSearch.setOnAction((ActionEvent event) -> {
+            String keyword = mainPage.tf.getText();
             try {
-                secondPage.start(primaryStage);
+                Library lB = new Library();
+                lB.readObject();
+                if (lB.getSearch(keyword, lB) == 0) {
+                    System.out.println("No game Found!");
+                } else {
+                    int gamePos = lB.getSearch(keyword, lB);
+                    secondPage.start(primaryStage);
+                    secondPage.populateData(lB, gamePos);
+                    
+                    secondPage.displayInfo.getChildren().clear();
+                    secondPage.displayInfo.getChildren().add(secondPage.textBoxes);
+                    System.out.println("true");
+                }
             } catch (IOException ex) {
-                Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(displayPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         secondPage.btnSwitch.setOnAction((ActionEvent event) -> {
@@ -53,7 +65,6 @@ public class mainController extends Application {
             }
         });
     }
-
     /**
      * @param args the command line arguments
      */
