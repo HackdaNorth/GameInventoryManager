@@ -198,7 +198,7 @@ public class datapage
       table.setEditable(true);
 
 
-      TableColumn<Game, Integer> position = new TableColumn<>("position");
+      TableColumn<Game, Integer> position = new TableColumn<>("Houres played");
       position.setCellValueFactory(new PropertyValueFactory<>("position"));
       position.setCellFactory(TextFieldTableCell.<Game, Integer>forTableColumn(new IntegerStringConverter()));
       position.setOnEditCommit((TableColumn.CellEditEvent<Game, Integer> event) -> {
@@ -311,26 +311,137 @@ public class datapage
             Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
          }
       });
-      TableColumn campaign = new TableColumn("Campaign");
+      TableColumn<Game, Integer> campaign = new TableColumn("Campaign");
       campaign.setCellValueFactory(new PropertyValueFactory<>("Campaign"));
+      campaign.setCellFactory(TextFieldTableCell.<Game, Integer>forTableColumn(new IntegerStringConverter()));
+      campaign.setOnEditCommit((TableColumn.CellEditEvent<Game, Integer> event) -> {
+         TablePosition<Game, Integer> pos = event.getTablePosition();
 
-      TableColumn developer = new TableColumn("Developer");
+         Integer newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setCampaign(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+
+      TableColumn<Game, String> developer = new TableColumn("Developer");
       developer.setCellValueFactory(new PropertyValueFactory<>("Developer"));
+      developer.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+      developer.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+         TablePosition<Game, String> pos = event.getTablePosition();
 
-      TableColumn rating = new TableColumn("Rating");
+         String newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setDeveloper(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+      TableColumn<Game, Double> rating = new TableColumn("Rating");
       rating.setCellValueFactory(new PropertyValueFactory<>("Rating"));
+      rating.setCellFactory(TextFieldTableCell.<Game, Double>forTableColumn((new DoubleStringConverter())));
+      rating.setOnEditCommit((TableColumn.CellEditEvent<Game, Double> event) -> {
+         TablePosition<Game, Double> pos = event.getTablePosition();
 
-      TableColumn achivements = new TableColumn("Achivements");
+         Double newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setRating(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+
+
+      TableColumn<Game, Double> achivements = new TableColumn("Achivements");
       achivements.setCellValueFactory(new PropertyValueFactory<>("Achivements"));
+      achivements.setCellFactory(TextFieldTableCell.<Game, Double>forTableColumn((new DoubleStringConverter())));
+      achivements.setOnEditCommit((TableColumn.CellEditEvent<Game, Double> event) -> {
+         TablePosition<Game, Double> pos = event.getTablePosition();
 
-      TableColumn multiplayer = new TableColumn("Multiplayer");
+         Double newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setAchievements(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+
+      TableColumn<Game, String> multiplayer = new TableColumn("Multiplayer");
       multiplayer.setCellValueFactory(new PropertyValueFactory<>("Multiplayer"));
+      multiplayer.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+      multiplayer.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+         TablePosition<Game, String> pos = event.getTablePosition();
 
-      TableColumn genre = new TableColumn("Genre");
+         String newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setMultiplayer(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+      TableColumn<Game, String> genre = new TableColumn("Genre");
       genre.setCellValueFactory(new PropertyValueFactory<>("Genre"));
+      genre.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+      genre.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+         TablePosition<Game, String> pos = event.getTablePosition();
 
-      TableColumn franchise = new TableColumn("Franchise");
+         String newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setGenre(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+      TableColumn<Game, String> franchise = new TableColumn("Franchise");
       franchise.setCellValueFactory(new PropertyValueFactory<>("Franchise"));
+      franchise.setCellFactory(TextFieldTableCell.<Game>forTableColumn());
+      franchise.setOnEditCommit((TableColumn.CellEditEvent<Game, String> event) -> {
+         TablePosition<Game, String> pos = event.getTablePosition();
+
+         String newValue = event.getNewValue();
+
+         int row = pos.getRow();
+         Game game = event.getTableView().getItems().get(row);
+         game.setFranchise(newValue);
+         try {
+            lB.writeObject(lB.games);
+         }
+         catch (IOException ex) {
+            Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      });
+
 
       table.getColumns().addAll(position, title, discription, cost, publisher, publishedIn, campaign, developer, rating, achivements, multiplayer, genre, franchise);
       table.getItems().addAll(lB.games);
@@ -399,6 +510,7 @@ public class datapage
          @Override
          public void handle (ActionEvent event)
          {
+            displayPage dp = new displayPage();
             String keyword = tf.getText();
             try {
                if (lB.dataBaseSearch(keyword) == true) {
@@ -411,7 +523,6 @@ public class datapage
             catch (IOException ex) {
                Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
          }
       });
 
