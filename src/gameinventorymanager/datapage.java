@@ -47,7 +47,7 @@ public class datapage
    String nameText, descText, pubText, datePubText, devText, genreText, francText, platText = "";
    double costDouble, achivDouble = 12 / 45, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
    int lengthInt = 0;
-   boolean multiplayer;
+
 
    public void start (Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException
    {
