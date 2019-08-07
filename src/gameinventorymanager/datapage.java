@@ -445,7 +445,6 @@ public class datapage
 
 
       table.getColumns().addAll(position, title, discription, cost, publisher, publishedIn, campaign, developer, rating, achivements, multiplayer, genre, franchise);
-     
       lB.readObject();
       table.getItems().addAll(lB.games);
 
@@ -517,6 +516,8 @@ public class datapage
               }
               catch (IOException ex) {
                   Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+              } catch (ClassNotFoundException ex) {
+                  Logger.getLogger(datapage.class.getName()).log(Level.SEVERE, null, ex);
               }
           }
       });
