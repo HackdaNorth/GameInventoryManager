@@ -394,25 +394,23 @@ public class datapage
 //                }
 //            }
 //        });
-      btnSearch.setOnAction(new EventHandler<ActionEvent>()
-      {
-         @Override
-         public void handle (ActionEvent event)
-         {
-            String keyword = tf.getText();
-            try {
-               if (lB.dataBaseSearch(keyword) == true) {
-                  System.out.println("true");
-               }
-               else {
-                  System.out.println("false");
-               }
-            }
-            catch (IOException ex) {
-               Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-         }
+      btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+              displayPage dp = new displayPage();
+              String keyword = tf.getText();
+              try {
+                  if (lB.dataBaseSearch(keyword) == true) {
+                      System.out.println("true");
+                  }
+                  else {
+                      System.out.println("false");
+                  }
+              }
+              catch (IOException ex) {
+                  Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+              }
+          }
       });
 
    }
