@@ -37,12 +37,13 @@ public class datapage {
     TextField tf;
     Group root = new Group();
     HBox pane = new HBox();
-    Color backgroundColor = Color.web("#FBDF55");
-    Color blueAccent = Color.web("#669CF5");
+    Color backgroundColor = Color.web("#011C42");
+    Color blueAccent = Color.web("#6EBAB6");
     Scene scene = new Scene(root, 1400, 900, backgroundColor);
     Button btnSearch = new Button();
     displayPage secondPage = new displayPage();
     Stage primaryStage;
+    Button removeGame;
     String nameText, descText, pubText, datePubText, devText, genreText, 
             francText, platText = "";
     double costDouble, ratingDouble = 59, campDouble = 00.0, hoursDouble = 0.0;
@@ -71,13 +72,13 @@ public class datapage {
         textBoxes.setHgap(10);
         textBoxes.setVgap(10);
 
-        Image imgLogo = new Image("file:Images/Capture3.PNG");
+        Image imgLogo = new Image("file:Images/logo.PNG");
 
         //Image imgLogo = new Image();
         ImageView iV = new ImageView(imgLogo);
         iV.setImage(imgLogo);
         iV.setFitHeight(300);
-        iV.setFitWidth(300);
+        iV.setFitWidth(350);
         iV.setY(50);
         iV.setX(100);
 
@@ -186,9 +187,15 @@ public class datapage {
 
         Button addGame = new Button("Add Game");
         textBoxes.add(addGame, 4, 3);
+        
+        removeGame = new Button("Remove Game");
+        textBoxes.add(removeGame, 4, 4);
+        
         Library lB = new Library();
         TableView table = new TableView();
         table.setEditable(true);
+        
+    
 
         TableColumn<Game, Integer> position = new TableColumn<>("Houres played");
         position.setCellValueFactory(new PropertyValueFactory<>("position"));

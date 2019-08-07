@@ -25,10 +25,10 @@ public class displayPage extends mainController {
 
     Group rootTwo = new Group();
 
-    Color backgroundBlue = Color.web("#0086FF");
-    Color goldAccent = Color.web("#FFAA00");
-    Color darkBlueAccent = Color.web("#2D59BF");
-    Color darkGrey = Color.web("#9E9F9F");
+    Color backgroundBlue = Color.web("#011C42");
+    Color goldAccent = Color.web("#FFFFFF");
+    Color darkBlueAccent = Color.web("#6EBAB6");
+    Color darkGrey = Color.web("#6EBAB6");
     Scene sceneTwo = new Scene(rootTwo, 1400, 900, backgroundBlue);
     Button btnSwitch = new Button("<-- Go Back");
 

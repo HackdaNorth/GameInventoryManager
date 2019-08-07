@@ -43,10 +43,28 @@ public class mainController extends Application {
                     int gamePos = lB.getSearch(keyword, lB);
                     secondPage.start(primaryStage);
                     secondPage.populateData(lB, gamePos);
-                    
+
                     secondPage.displayInfo.getChildren().clear();
                     secondPage.displayInfo.getChildren().add(secondPage.textBoxes);
                     System.out.println("true");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(displayPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        mainPage.removeGame.setOnAction((ActionEvent event) -> {
+            String keyword = mainPage.tf.getText();
+            try {
+                Library lB = new Library();
+                lB.readObject();
+                if (lB.getSearch(keyword, lB) == 0) {
+                    System.out.println("No game Found!");
+                } else {
+                    int gamePos = lB.getSearch(keyword, lB);
+                    lB.games.remove(gamePos);
+                    lB.writeObject(lB.games);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(mainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,6 +83,7 @@ public class mainController extends Application {
             }
         });
     }
+
     /**
      * @param args the command line arguments
      */

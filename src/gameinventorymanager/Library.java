@@ -28,9 +28,7 @@ public class Library {
         } catch (FileNotFoundException e) {
             System.out.println("File Can't be found");
         }
-
     }
-
     /**
      * @return the games
      */
