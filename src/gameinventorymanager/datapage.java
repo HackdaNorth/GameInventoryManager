@@ -49,6 +49,7 @@ public class datapage
    int lengthInt = 0;
 
 
+
    public void start (Stage primaryStage) throws FileNotFoundException, IOException, ClassNotFoundException
    {
       root.getChildren().clear();
@@ -444,10 +445,7 @@ public class datapage
 
 
       table.getColumns().addAll(position, title, discription, cost, publisher, publishedIn, campaign, developer, rating, achivements, multiplayer, genre, franchise);
-      table.getItems().addAll(lB.games);
-//      Game g1 = new Game(0, "saw", "alber", 40.00, "aa", "aa", 20, "aa", 30.00, 40.00, "true", "alfa", "beta");
-//      lB.games.add(g1);
-//      lB.writeObject(lB.games);
+     
       lB.readObject();
       table.getItems().addAll(lB.games);
 
