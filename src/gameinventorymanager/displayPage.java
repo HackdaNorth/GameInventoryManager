@@ -183,7 +183,7 @@ public class displayPage extends mainController {
         textBoxes.add(dbPublisher, 1, 3);
         //dbPublisher.setPromptText("Publisher...");
 
-        Label lbDateMade = new Label("Date Made:");
+        Label lbDateMade = new Label("Description");
         dbDateMade = new Label();
         textBoxes.add(lbDateMade, 3, 2);
         textBoxes.add(dbDateMade, 3, 3);

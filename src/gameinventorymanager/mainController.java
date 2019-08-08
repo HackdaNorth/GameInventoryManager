@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +29,7 @@ public class mainController extends Application {
 
         //loads mainStage
         mainPage.start(primaryStage);
+       
         //this is an example of how to switch between stages. You can cut and paste this method in order to switch.
         //It takes the secondary stage form displayPage.
         mainPage.btnSearch.setOnAction((ActionEvent event) -> {
